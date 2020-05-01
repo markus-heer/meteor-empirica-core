@@ -12,6 +12,7 @@ import { IconNames } from "@blueprintjs/icons";
 import React from "react";
 import { Helmet } from "react-helmet";
 import { Link } from "react-router-dom";
+import queryString from "query-string";
 import GameContainer from "../containers/GameContainer.jsx";
 import { removePlayerId } from "../containers/IdentifiedContainer.jsx";
 import AboutOriginal from "./About.jsx";
@@ -125,7 +126,8 @@ export default class Public extends React.Component {
             </NavbarGroup>
             <NavbarGroup align="right">
               {Meteor.isDevelopment ||
-              Meteor.settings.public.debug_newPlayer ? (
+              Meteor.settings.public.debug_newPlayer || 
+              queryString.parse(this.props.location.search).newPlayerButton ? (
                 <Button
                   text="New Player"
                   minimal
@@ -136,7 +138,8 @@ export default class Public extends React.Component {
                 ""
               )}
               {Meteor.isDevelopment ||
-              Meteor.settings.public.debug_resetSession ? (
+              Meteor.settings.public.debug_resetSession ||
+              queryString.parse(this.props.location.search).resetSessionButton ? (
                 <Button
                   text="Reset current session"
                   minimal
